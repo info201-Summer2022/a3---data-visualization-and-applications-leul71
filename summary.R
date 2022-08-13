@@ -6,7 +6,7 @@ incarcceration_df <- read.csv("https://raw.githubusercontent.com/vera-institute/
 
 ## Claim: African Americans are imprisoned/jailed the most over any other race in WA state.
 
-## What is the population of African Americans in prison
+## What is the population of African Americans in prison in WA state
 max_black_population_WA <- incarcceration_df %>% 
   select(state, year, black_prison_pop) %>% 
   filter(state == "WA") %>% 
@@ -14,7 +14,7 @@ max_black_population_WA <- incarcceration_df %>%
   filter(black_prison_pop == max(black_prison_pop)) %>% 
   pull(black_prison_pop)
 
-## What is the population of latinx in prison
+## What is the population of latinx in prison in WA state
 max_latinx_population_WA <- incarcceration_df %>% 
   select(state, year, latinx_prison_pop) %>% 
   filter(state == "WA") %>% 
@@ -22,31 +22,72 @@ max_latinx_population_WA <- incarcceration_df %>%
   filter(latinx_prison_pop == max(latinx_prison_pop)) %>% 
   pull(latinx_prison_pop)
 
-## How has age change in prison form 1970 to 2018 in WA
-max_aapi_population_WA <- incarcceration_df %>% 
+## What is the population of asian americans in prison in WA state
+max_aapi_population_WA <- distinct(incarcceration_df) %>% 
   select(state, year, aapi_prison_pop) %>% 
   filter(state == "WA") %>% 
   drop_na() %>% 
   filter(aapi_prison_pop == max(aapi_prison_pop)) %>% 
-  pull(aapi_prison_pop) 
+  pull(aapi_prison_pop)
 
-## Are there more men in prison than women or the same amount in WA
-WA_gender_in_priosn <- incarcceration_df %>% 
-  select(state, year, county_name, female_pop_15to64, male_pop_15to64, 
-         total_pop, female_prison_pop, male_prison_pop) %>% 
-  filter(state == "WA")
-WA_gender_in_priosn = na.omit(WA_gender_in_priosn)
+## What is the max population of naive in prison in WA
+max_native_population_WA <- incarcceration_df %>% 
+  select(state, year, native_prison_pop) %>% 
+  filter(state == "WA") %>% 
+  drop_na() %>% 
+  filter(native_prison_pop == max(native_prison_pop)) %>% 
+  pull(native_prison_pop)
 
-## How does jail demographics compare to prison demographics in WA
-WA_jail_to_prison <- incarcceration_df %>% 
-  select(state, year, county_name, total_jail_pop, female_jail_pop,
-         male_jail_pop,black_jail_pop, white_jail_pop, 
-         latinx_jail_pop, native_jail_pop, aapi_jail_pop) %>% 
-  filter(state == "WA")
-WA_jail_to_prison = na.omit(WA_jail_to_prison)
-    
-    
-    
-    
-    
-    
+## What is the max  population of white in prison in WA
+max_white_population_WA <- incarcceration_df %>% 
+  select(state, year, white_prison_pop) %>% 
+  filter(state == "WA") %>% 
+  drop_na() %>% 
+  filter(white_prison_pop == max(white_prison_pop)) %>% 
+  pull(white_prison_pop)
+  
+## A chart that shows trends over time for a variable of the above choices
+## Time trend
+chart_data <- incarcceration_df %>% 
+  drop_na()
+second_chart_data <- chart_data %>% 
+  filter(year >= 1970) %>% 
+  group_by(year) %>% 
+  summarise(
+    black_prison_pop = sum(black_prison_pop),
+    latinx_prison_pop = sum(latinx_prison_pop),
+    native_prison_pop = sum(native_prison_pop),
+    aapi_prison_pop = sum(aapi_prison_pop),
+    white_prison_pop = sum(white_prison_pop),
+    year = year,
+    .groups = "drop"
+  )
+
+## gathering data
+data_for_chart <- second_chart_data %>% 
+  gather(key = race, value = result, -year) %>% 
+  group_by(year, race) %>% 
+  summarise(
+    result = sum(result), 
+    .groups = "drop"
+  )
+
+## creating the chart 
+create_plot <- ggplot( data = data_for_chart) +
+    geom_line(mapping = aes(x = year, y = result, color = race))
+
+## Chart that compares two
+
+
+
+
+
+
+
+
+
+
+
+
+
+
