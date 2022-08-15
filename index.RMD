@@ -1,7 +1,7 @@
 ---
 title: "index.Rmd"
 output: html_document
-date: '2022-08-11'
+date: '2022-14-11'
 ---
 
 ```{r setup, include=FALSE}
@@ -10,24 +10,33 @@ source("summary.R")
 ```
 
 ## Introduction
-In the united states American taxpayers pay approximately $80 billion toward annual prison costs every year, yet few understand where that money goes. From this data set I primarly will be analyzing demographics and age in the the United States prison starting from **1970 to 2018**
+In the united states American taxpayers pay approximately $80 billion toward annual prison costs every year, yet few understand where that money goes. From this data set I primary will be analyzing demographics in the California state prison becasue California has a great population than the whole Canada. This data will have be prison data from **1970 to 2018**. I was surprised by my findings from this data, When I first started this assignment, I had an assumption that black people would account for at least 50% - 70% of prison population but I was proven wrong from the data I found. There were approximately **`r format(max_black_population_CA)`** black people, **`r format(max_latinx_population_CA)`** Latinx people, **`r format(max_aapi_population_CA)`** Asian Americans,**`r format(max_native_population_CA)`** native american, and `r format(max_white_population_CA)` white people.
 
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+This below is the chart that show the trend over time. It shows how many people and what race were incarcerated the most from **2000** to **2015**. There is high black population in prison in the whole US. White is the second highest in the us and Latin is third and native and Asian are the least in thew whole country.
 
 ```{r cars, echo = FALSE, warning = FALSE, message = FALSE }
 ggplotly(create_plot)
 ```
 
 
-## Including Plots
+This chart below shows how many black people were arrested. The prison population for black people was the highest in **2007** and this is across the country nont only in the state of California. After doing this assignment I figured out there is more Latin prisoners in the state of California than black people. 
 
-You can also embed plots, for example:
+## Comparison plot
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r comparison, echo = FALSE, warning = FALSE, message = FALSE }
+ggplotly(black_population)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+Below is a map of California showing the trend of the black prison population. Throughout the years in time. We can see that the numbers are not that high in some places and there are some other races that are higher than black. For the most part is is low because it is colored yellow, the yellow represents a small value or a value close to 0. On the other hand the red represents high black population in prison, if the the color looks like orange then the number is in the mean interval.
+
+## Black prison population in California
+
+```{r map, echo = FALSE, warning = FALSE, message = FALSE }
+ggplotly(cases_map)
+```
+
+In general, I was surprised by what I found from this data, I started this assignment thinking there is more black people in prison in California but I was wrong, There are more Latinx people in California prison than black. In movies, there seem to be a  lot more black people in prison but it is completely different. There is also other rumors or assumptions that make people think there would be more black people in prison such as racism, stereotyping, movies, police brutality and so much more.
+
+
+
+
